@@ -8,7 +8,7 @@ const NotFoundScreen = () => {
       <Stack.Screen options={{ title: "Oops! Not Found" }} />
       <View style={styles.container}> 
         <Link href="/" style={styles.button}>
-          Go back to Home screen!
+          Back to Home screen
         </Link>
       </View>
     </>
@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 20,
     textDecorationLine: "underline",
-    color: "#fff",
+    color: "#ffd33d",
   },
 });
