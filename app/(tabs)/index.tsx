@@ -1,7 +1,10 @@
 import ActionButtons from "@/components/home/ActionButtons";
+import EmojiList from "@/components/home/EmojiList";
 import ImagePreview from "@/components/home/ImagePreview";
 import OptionsButtons from "@/components/home/OptionsButtons";
+import BottomSlideUp from "@/components/modals/ButtomSlideup";
 import { useImageActions } from "@/hooks/useImageActions";
+import { type ImageSource } from "expo-image";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -10,6 +13,10 @@ export default function Index() {
     useImageActions();
 
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(
+    undefined
+  );
 
   const handleUsePhoto = () => {
     setSelectedImage(undefined);
@@ -20,17 +27,22 @@ export default function Index() {
   };
 
   const onAddSticker = () => {
-    // implement this later
+    setIsModalVisible(true);
   };
 
   const onSaveImageAsync = async () => {
     // implement this later
   };
 
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <ImagePreview
         selectedImage={selectedImage}
+        pickedEmoji={pickedEmoji}
         style={styles.imagePreviewContainer}
       />
 
@@ -58,6 +70,13 @@ export default function Index() {
           style={styles.optionsButtonsContainer}
         />
       )}
+      <BottomSlideUp
+        isVisible={isModalVisible}
+        height={"25%"}
+        onClose={onModalClose}
+      >
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </BottomSlideUp>
     </View>
   );
 }
