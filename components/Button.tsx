@@ -9,9 +9,10 @@ export enum ButtonTheme {
 type Props = {
   label: string;
   theme?: ButtonTheme;
+  onPress?: () => void;
 };
 
-export default function Button({ label, theme }: Props) {
+export default function Button({ label, theme, onPress }: Props) {
   if (theme === ButtonTheme.PRIMARY) {
     return (
       <View
@@ -22,7 +23,7 @@ export default function Button({ label, theme }: Props) {
       >
         <Pressable
           style={[styles.button, { backgroundColor: "#fff" }]}
-          onPress={() => alert("You pressed a button.")}
+          onPress={onPress}
         >
           <FontAwesome
             name="picture-o"
@@ -42,7 +43,7 @@ export default function Button({ label, theme }: Props) {
     <View style={styles.buttonContainer}>
       <Pressable
         style={styles.button}
-        onPress={() => alert("You pressed a button.")}
+        onPress={onPress}
       >
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
