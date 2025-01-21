@@ -1,7 +1,6 @@
 import Button, { ButtonTheme } from "@/components/Button";
 import ImageViewer from "@/components/ImageViewer";
 import * as ImagePicker from "expo-image-picker";
-import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
