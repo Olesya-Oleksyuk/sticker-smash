@@ -4,18 +4,36 @@ import { type ImageSource } from "expo-image";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 type ImagePreviewProps = {
-    selectedImage?: string;
-    pickedEmoji?: ImageSource;
-    style?: StyleProp<ViewStyle>;
-  };
+  imageRef: React.RefObject<View>;
+  selectedImage?: string;
+  pickedEmoji?: ImageSource;
+  style?: StyleProp<ViewStyle>;
+};
 
-export default function ImagePreview({ selectedImage, pickedEmoji, style }: ImagePreviewProps) {
+export default function ImagePreview({
+  imageRef,
+  selectedImage,
+  pickedEmoji,
+  style,
+}: ImagePreviewProps) {
   const PlaceholderImage = require("@/assets/images/default-picture.jpg");
 
   return (
     <View style={[styles.imageContainer, style]}>
-      <ImageViewer initialPlaceholder={PlaceholderImage} selectedImage={selectedImage} />
-      {pickedEmoji && <EmojiSticker imageSize={40} stickerSrc={pickedEmoji} style={styles.emojiSticker} />}
+      <View ref={imageRef} collapsable={false}>
+        <ImageViewer
+          initialPlaceholder={PlaceholderImage}
+          selectedImage={selectedImage}
+          imageStyle={styles.image}
+        />
+        {pickedEmoji && (
+          <EmojiSticker
+            imageSize={40}
+            stickerSrc={pickedEmoji}
+            style={styles.emojiSticker}
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -31,5 +49,9 @@ const styles = StyleSheet.create({
   emojiSticker: {
     position: "absolute",
     top: "50%",
+  },
+  image: {
+    width: 320,
+    height: 380,
   },
 });

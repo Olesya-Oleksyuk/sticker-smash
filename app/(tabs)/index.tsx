@@ -2,12 +2,16 @@ import ActionButtons from "@/components/home/ActionButtons";
 import EmojiList from "@/components/home/EmojiList";
 import ImagePreview from "@/components/home/ImagePreview";
 import OptionsButtons from "@/components/home/OptionsButtons";
-import BottomSlideUp from "@/components/modals/ButtomSlideup";
+import BottomSlideUp from "@/components/modals/BottomSlideup";
+
 import { useImageActions } from "@/hooks/useImageActions";
 import { type ImageSource } from "expo-image";
-import { useState } from "react";
-import { StyleSheet } from "react-native";
+import * as MediaLibrary from "expo-media-library";
+import { useRef, useState } from "react";
+import { StyleSheet, type View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { captureRef } from "react-native-view-shot";
+
 
 export default function Index() {
   const { selectedImage, setSelectedImage, pickImageAsync, makePhoto } =
@@ -18,6 +22,14 @@ export default function Index() {
   const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(
     undefined
   );
+  const [mediaPermissionStatus, requestMediaPermission] =
+    MediaLibrary.usePermissions();
+
+  const imageRef = useRef<View>(null);
+
+  if (mediaPermissionStatus === null) {
+    requestMediaPermission();
+  }
 
   const handleUsePhoto = () => {
     setSelectedImage(undefined);
@@ -25,14 +37,27 @@ export default function Index() {
 
   const onReset = () => {
     setShowAppOptions(false);
+    setPickedEmoji(undefined);
   };
 
   const onAddSticker = () => {
     setIsModalVisible(true);
   };
 
-  const onSaveImageAsync = async () => {
-    // implement this later
+  const onSaveImage = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert("Saved!");
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onModalClose = () => {
@@ -42,6 +67,7 @@ export default function Index() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <ImagePreview
+        imageRef={imageRef}
         selectedImage={selectedImage}
         pickedEmoji={pickedEmoji}
         style={styles.imagePreviewContainer}
@@ -65,7 +91,7 @@ export default function Index() {
         />
       ) : (
         <OptionsButtons
-          onSaveImageAsync={onSaveImageAsync}
+          onSaveImage={onSaveImage}
           onAddSticker={onAddSticker}
           onReset={onReset}
           style={styles.optionsButtonsContainer}

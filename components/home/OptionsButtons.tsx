@@ -3,14 +3,14 @@ import IconButton from "@/components/IconButton";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 type ActionButtonsProps = {
-  onSaveImageAsync: () => void;
+  onSaveImage: () => void;
   onAddSticker: () => void;
   onReset: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
 export default function ActionButtons({
-  onSaveImageAsync,
+  onSaveImage,
   onAddSticker,
   onReset,
   style,
@@ -20,7 +20,7 @@ export default function ActionButtons({
       <View style={styles.optionsRow}>
         <IconButton icon="refresh" label="Reset" onPress={onReset} />
         <CircleButton onPress={onAddSticker} />
-        <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+        <IconButton icon="save-alt" label="Save" onPress={onSaveImage} />
       </View>
     </View>
   );
