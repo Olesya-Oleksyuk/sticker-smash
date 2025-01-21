@@ -6,7 +6,8 @@ import BottomSlideUp from "@/components/modals/ButtomSlideup";
 import { useImageActions } from "@/hooks/useImageActions";
 import { type ImageSource } from "expo-image";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Index() {
   const { selectedImage, setSelectedImage, pickImageAsync, makePhoto } =
@@ -39,7 +40,7 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <ImagePreview
         selectedImage={selectedImage}
         pickedEmoji={pickedEmoji}
@@ -77,7 +78,7 @@ export default function Index() {
       >
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </BottomSlideUp>
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
