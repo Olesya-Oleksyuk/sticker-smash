@@ -16,6 +16,9 @@ type Props = {
 export default function EmojiSticker({ imageSize, stickerSrc, style }: Props) {
   const scaleImage = useSharedValue(imageSize);
 
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
@@ -33,19 +36,35 @@ export default function EmojiSticker({ imageSize, stickerSrc, style }: Props) {
     };
   });
 
+  const drag = Gesture.Pan().onChange((event) => {
+    translateX.value += event.changeX;
+    translateY.value += event.changeY;
+  });
+
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
+
   return (
-    <View style={[styles.emojiContainer, style]}>
-      <GestureDetector gesture={doubleTap}>
-        <Animated.Image
-          source={stickerSrc}
-          resizeMode="contain"
-          style={imageStyle}
-        />
-      </GestureDetector>
-    </View>
+    <GestureDetector gesture={drag}>
+      <Animated.View style={[containerStyle, style]}>
+        <GestureDetector gesture={doubleTap}>
+          <Animated.Image
+            source={stickerSrc}
+            resizeMode="contain"
+            style={imageStyle}
+          />
+        </GestureDetector>
+      </Animated.View>
+    </GestureDetector>
   );
 }
-
-const styles = StyleSheet.create({
-  emojiContainer: {},
-});
