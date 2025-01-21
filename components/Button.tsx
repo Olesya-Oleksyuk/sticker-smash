@@ -11,17 +11,18 @@ import {
 export enum ButtonTheme {
   PRIMARY = "primary",
   SECONDARY = "secondary",
-  CAMERA = "camera",
 }
 
 type Props = {
-  label: string;
+  children?: React.ReactNode;
+  label?: string;
   theme?: ButtonTheme;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  icon?: keyof typeof FontAwesome.glyphMap;
 };
 
-export default function Button({ label, theme, onPress, style }: Props) {
+export default function Button({ label, theme, onPress, style, icon }: Props) {
   if (theme === ButtonTheme.PRIMARY) {
     return (
       <View
@@ -35,39 +36,15 @@ export default function Button({ label, theme, onPress, style }: Props) {
           style={[styles.button, { backgroundColor: "#fff" }]}
           onPress={onPress}
         >
-          <FontAwesome
-            name="picture-o"
-            size={18}
-            color="#25292e"
-            style={styles.buttonIcon}
-          />
-          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>
-            {label}
-          </Text>
-        </Pressable>
-      </View>
-    );
-  }
+          {icon && (
+            <FontAwesome
+              name={icon}
+              size={18}
+              color="#25292e"
+              style={styles.buttonIcon}
+            />
+          )}
 
-  if (theme === ButtonTheme.CAMERA) {
-    return (
-      <View
-        style={[
-          styles.buttonContainer,
-          { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 },
-          style,
-        ]}
-      >
-        <Pressable
-          style={[styles.button, { backgroundColor: "#fff" }]}
-          onPress={onPress}
-        >
-          <FontAwesome
-            name="camera"
-            size={18}
-            color="#25292e"
-            style={styles.buttonIcon}
-          />
           <Text style={[styles.buttonLabel, { color: "#25292e" }]}>
             {label}
           </Text>
