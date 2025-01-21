@@ -20,12 +20,30 @@ export default function Index() {
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
-      console.log(result);
     } else {
       alert("You did not select any image.");
     }
   };
 
+  const makePhoto = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this app to access your camera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      alert("You did not take any photo.");
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -39,6 +57,12 @@ export default function Index() {
           label="Choose a photo"
           theme={ButtonTheme.PRIMARY}
           onPress={pickImageAsync}
+        />
+        <Button
+          label="Make a photo"
+          theme={ButtonTheme.CAMERA}
+          onPress={makePhoto}
+          style={styles.cameraButton}
         />
         <Button
           label="Use this photo"
@@ -72,7 +96,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   footerContainer: {
-    flex: 1 / 3,
+    flex: 2 / 3,
     alignItems: "center",
+  },
+  cameraButton: {
+    marginTop: 10,
   },
 });

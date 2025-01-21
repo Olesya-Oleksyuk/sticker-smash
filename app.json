@@ -23,6 +23,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Allow Sticker Smash to access your camera.",
+          "photosPermission": "Allow Sticker Smash to access your photos."
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
