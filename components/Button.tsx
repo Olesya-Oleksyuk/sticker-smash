@@ -17,12 +17,12 @@ type Props = {
   children?: React.ReactNode;
   label?: string;
   theme?: ButtonTheme;
-  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   icon?: keyof typeof FontAwesome.glyphMap;
+  onPress?: () => void;
 };
 
-export default function Button({ label, theme, onPress, style, icon }: Props) {
+export default function Button({ label, theme, style, icon, onPress }: Props) {
   if (theme === ButtonTheme.PRIMARY) {
     return (
       <View
