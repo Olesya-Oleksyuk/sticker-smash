@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "sticker-smash",
+    "name": "sticker-smash-oleksiuk",
     "slug": "sticker-smash",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,13 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.stickersmash"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#D9D9D9"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.stickersmash"
     },
     "web": {
       "bundler": "metro",
@@ -34,10 +39,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-screen.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#25292e"
         }
       ]
     ],
