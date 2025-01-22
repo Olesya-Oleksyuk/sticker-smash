@@ -6,30 +6,26 @@ import BottomSlideUp from "@/components/modals/BottomSlideup";
 
 import { useImageActions } from "@/hooks/useImageActions";
 import { type ImageSource } from "expo-image";
-import * as MediaLibrary from "expo-media-library";
 import { useRef, useState } from "react";
 import { StyleSheet, type View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { captureRef } from "react-native-view-shot";
-import domtoimage from 'dom-to-image';
 
 export default function Index() {
-  const { selectedImage, setSelectedImage, pickImageAsync, makePhoto } =
-    useImageActions();
+  const {
+    selectedImage,
+    setSelectedImage,
+    pickImageAsync,
+    makePhoto,
+    makeScreenshot,
+  } = useImageActions();
 
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(
     undefined
   );
-  const [mediaPermissionStatus, requestMediaPermission] =
-    MediaLibrary.usePermissions();
 
-  const imageRef = useRef<View>(null);
-
-  if (mediaPermissionStatus === null) {
-    requestMediaPermission();
-  }
+  const imageRef = useRef<View | Node>(null);
 
   const handleUsePhoto = () => {
     setSelectedImage(undefined);
@@ -42,22 +38,6 @@ export default function Index() {
 
   const onAddSticker = () => {
     setIsModalVisible(true);
-  };
-
-  const onSaveImage = async () => {
-    try {
-      const localUri = await captureRef(imageRef, {
-        height: 440,
-        quality: 1,
-      });
-
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if (localUri) {
-        alert("Saved!");
-      }
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   const onModalClose = () => {
@@ -91,7 +71,7 @@ export default function Index() {
         />
       ) : (
         <OptionsButtons
-          onSaveImage={onSaveImage}
+          onSaveImage={() => makeScreenshot(imageRef)}
           onAddSticker={onAddSticker}
           onReset={onReset}
           style={styles.optionsButtonsContainer}

@@ -1,10 +1,11 @@
 import EmojiSticker from "@/components/home/EmojiSticker";
 import ImageViewer from "@/components/ImageViewer";
+import { IMAGE_DIMENSIONS } from "@/constants/Others";
 import { type ImageSource } from "expo-image";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 type ImagePreviewProps = {
-  imageRef: React.RefObject<View>;
+  imageRef: React.RefObject<View | Node>;
   selectedImage?: string;
   pickedEmoji?: ImageSource;
   style?: StyleProp<ViewStyle>;
@@ -20,7 +21,7 @@ export default function ImagePreview({
 
   return (
     <View style={[styles.imageContainer, style]}>
-      <View ref={imageRef} collapsable={false}>
+      <View ref={imageRef as React.RefObject<View>} collapsable={false}>
         <ImageViewer
           initialPlaceholder={PlaceholderImage}
           selectedImage={selectedImage}
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     top: "50%",
   },
   image: {
-    width: 320,
-    height: 380,
+    width: IMAGE_DIMENSIONS.width,
+    height: IMAGE_DIMENSIONS.height,
   },
 });
