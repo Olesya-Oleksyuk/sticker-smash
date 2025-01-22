@@ -42,7 +42,7 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
 
 const styles = StyleSheet.create({
   listContainer: {
-    // flex: 1,
+    flex: Platform.OS === "web" ? 1 : undefined,
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",

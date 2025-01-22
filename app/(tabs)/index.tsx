@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 import { StyleSheet, type View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { captureRef } from "react-native-view-shot";
-
+import domtoimage from 'dom-to-image';
 
 export default function Index() {
   const { selectedImage, setSelectedImage, pickImageAsync, makePhoto } =
