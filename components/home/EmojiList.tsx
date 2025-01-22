@@ -15,6 +15,9 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
     require("@/assets/images/emoji4.png"),
     require("@/assets/images/emoji5.png"),
     require("@/assets/images/emoji6.png"),
+    require("@/assets/images/emoji7.png"),
+    require("@/assets/images/emoji8.png"),
+    require("@/assets/images/emoji9.png"),
   ]);
 
   return (
@@ -39,7 +42,7 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
 
 const styles = StyleSheet.create({
   listContainer: {
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
