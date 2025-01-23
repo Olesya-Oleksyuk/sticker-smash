@@ -31,9 +31,16 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo
 
 app-example
 .vscode
+
+# Ignore native build folders in managed workflow
+android/
+ios/
