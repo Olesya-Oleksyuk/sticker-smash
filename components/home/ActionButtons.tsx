@@ -17,7 +17,7 @@ export default function ActionButtons({
   return (
     <View style={[styles.ButtonsContainer, style]}>
       <Button
-        label="Choose a photo"
+        label="Select a photo"
         theme={ButtonTheme.PRIMARY}
         icon="image"
         onPress={onPickImage}
