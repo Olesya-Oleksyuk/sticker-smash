@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { SplashScreen, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 
 export default function RootLayout() {
   // SplashScreen.preventAutoHideAsync();

@@ -1,4 +1,6 @@
 import Button, { ButtonTheme } from "@/components/Button";
+import useScreenOrientation from "@/hooks/useScreenOrientation";
+import * as ScreenOrientation from "expo-screen-orientation";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 type ActionButtonsProps = {
@@ -6,38 +8,51 @@ type ActionButtonsProps = {
   onMakePhoto: () => void;
   onUsePhoto: () => void;
   style?: StyleProp<ViewStyle>;
+  className?: string;
 };
 
 export default function ActionButtons({
   onPickImage,
   onMakePhoto,
   onUsePhoto,
-  style
+  className,
 }: ActionButtonsProps) {
+  const { orientation } = useScreenOrientation();
+
+  const isPortrait = () =>
+    orientation === ScreenOrientation.Orientation.PORTRAIT_UP ||
+    orientation === ScreenOrientation.Orientation.PORTRAIT_DOWN;
+
   return (
-    <View style={[styles.ButtonsContainer, style]}>
+    <View className={className} style={[styles.ButtonsContainer]}>
       <Button
         label="Select a picture"
         theme={ButtonTheme.PRIMARY}
         icon="image"
         onPress={onPickImage}
+        className={isPortrait() ? "w-full" : "w-fit"}
       />
       <Button
         label="Make a photo"
         theme={ButtonTheme.PRIMARY}
         icon="camera"
         onPress={onMakePhoto}
-        style={styles.cameraButton}
+        className={isPortrait() ? "w-full" : "w-fit"}
       />
-      <Button label="Use this photo" onPress={onUsePhoto} />
+      <Button
+        label="Use this photo"
+        onPress={onUsePhoto}
+        className={isPortrait() ? "w-full" : "w-fit"}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   ButtonsContainer: {
-    flex: 1,
-
+    // flex: 1,
+    // width: "100%",
+    paddingHorizontal: 20,
   },
   cameraButton: {
     marginTop: 10,

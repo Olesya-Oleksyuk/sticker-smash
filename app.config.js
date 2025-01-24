@@ -39,6 +39,7 @@ export default {
   ios: {
     supportsTablet: true,
     bundleIdentifier: getUniqueIdentifier(),
+    requireFullScreen: true,
   },
   android: {
     adaptiveIcon: {
@@ -70,6 +71,12 @@ export default {
         imageWidth: 200,
         resizeMode: "contain",
         backgroundColor: "#25292e",
+      },
+    ],
+    [
+      "expo-screen-orientation",
+      {
+        initialOrientation: "DEFAULT",
       },
     ],
   ],

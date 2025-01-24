@@ -7,15 +7,21 @@ type Props = {
   imageStyle: StyleProp<ImageStyle>;
 };
 
-export default function ImageViewer({ initialPlaceholder, selectedImage, imageStyle }: Props) {
-  const imageSource = selectedImage ? { uri: selectedImage } : initialPlaceholder;
+export default function ImageViewer({
+  initialPlaceholder,
+  selectedImage,
+}: Props) {
+  const imageSource = selectedImage
+    ? { uri: selectedImage }
+    : initialPlaceholder;
 
-  return <Image source={imageSource} style={[styles.image, imageStyle]} />;
+  return <Image source={imageSource} style={[styles.image]} />;
 }
 
 const styles = StyleSheet.create({
   image: {
     borderRadius: 18,
+    width: "100%",
+    height: "100%",
   },
 });
-
