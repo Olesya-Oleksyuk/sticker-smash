@@ -31,7 +31,7 @@ export default {
   slug: "sticker-smash",
 
   version: "1.0.0",
-  orientation: "portrait",
+  orientation: "default",
   icon: "./assets/images/icon.png",
   scheme: "myapp",
   userInterfaceStyle: "automatic",
@@ -39,6 +39,7 @@ export default {
   ios: {
     supportsTablet: true,
     bundleIdentifier: getUniqueIdentifier(),
+    requireFullScreen: true,
   },
   android: {
     adaptiveIcon: {
@@ -72,6 +73,12 @@ export default {
         backgroundColor: "#25292e",
       },
     ],
+    [
+      "expo-screen-orientation",
+      {
+        initialOrientation: "DEFAULT",
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,
@@ -85,9 +92,9 @@ export default {
   },
 
   updates: {
-    url: "https://u.expo.dev/a372e5f9-6189-4d20-95df-950a97835b29"
+    url: "https://u.expo.dev/a372e5f9-6189-4d20-95df-950a97835b29",
   },
   runtimeVersion: {
-    policy: "appVersion"
-  }
+    policy: "appVersion",
+  },
 };

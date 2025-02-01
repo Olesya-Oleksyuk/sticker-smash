@@ -20,9 +20,17 @@ type Props = {
   style?: StyleProp<ViewStyle>;
   icon?: keyof typeof FontAwesome.glyphMap;
   onPress?: () => void;
+  className?: string;
 };
 
-export default function Button({ label, theme, style, icon, onPress }: Props) {
+export default function Button({
+  label,
+  theme,
+  style,
+  icon,
+  onPress,
+  className,
+}: Props) {
   if (theme === ButtonTheme.PRIMARY) {
     return (
       <View
@@ -31,10 +39,12 @@ export default function Button({ label, theme, style, icon, onPress }: Props) {
           { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 },
           style,
         ]}
+        className={className}
       >
         <Pressable
           style={[styles.button, { backgroundColor: "#fff" }]}
           onPress={onPress}
+          className={className}
         >
           {icon && (
             <FontAwesome
@@ -54,9 +64,9 @@ export default function Button({ label, theme, style, icon, onPress }: Props) {
   }
 
   return (
-    <View style={[styles.buttonContainer, style]}>
-      <Pressable style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonLabel}>{label}</Text>
+    <View style={[styles.buttonContainer, style]} className={className}>
+      <Pressable style={styles.button} onPress={onPress} className={className}>
+        <Text className="text-white text-sm">{label}</Text>
       </Pressable>
     </View>
   );
@@ -64,16 +74,20 @@ export default function Button({ label, theme, style, icon, onPress }: Props) {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: 320,
+    // flex: 0,
+    // width: "auto",
+    // width: "100%",
+    // minWidth: 220,
+    // width: "auto",
     height: 68,
-    marginHorizontal: 20,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,
   },
   button: {
+    // width: "100%",
+    paddingHorizontal: 20,
     borderRadius: 10,
-    width: "100%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",

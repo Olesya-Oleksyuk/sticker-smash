@@ -9,6 +9,7 @@ type ImagePreviewProps = {
   selectedImage?: string;
   pickedEmoji?: ImageSource;
   style?: StyleProp<ViewStyle>;
+  className?: string;
 };
 
 export default function ImagePreview({
@@ -16,12 +17,17 @@ export default function ImagePreview({
   selectedImage,
   pickedEmoji,
   style,
+  className,
 }: ImagePreviewProps) {
   const PlaceholderImage = require("@/assets/images/default-picture.jpg");
 
   return (
-    <View style={[styles.imageContainer, style]}>
-      <View ref={imageRef as React.RefObject<View>} collapsable={false}>
+    <View className={className} style={[styles.imageContainer, style]}>
+      <View
+        className="flex-1 w-full"
+        ref={imageRef as React.RefObject<View>}
+        collapsable={false}
+      >
         <ImageViewer
           initialPlaceholder={PlaceholderImage}
           selectedImage={selectedImage}
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     position: "relative",
-    width: "100%",
+    // width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -52,7 +58,8 @@ const styles = StyleSheet.create({
     top: "50%",
   },
   image: {
-    width: IMAGE_DIMENSIONS.width,
-    height: IMAGE_DIMENSIONS.height,
+    maxWidth: IMAGE_DIMENSIONS.width,
+    width: "50%",
+    height: "100%",
   },
 });
